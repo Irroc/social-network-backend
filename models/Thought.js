@@ -7,8 +7,9 @@ const reactionSchema = new Schema(
       default: () => new Types.ObjectId(),
     },
     reactionBody: {
-      type: Date,
-      default: Date.now(),
+      type: String,
+      required: true,
+      maxLength: 280,
     },
     username: {
       type: String,
@@ -19,10 +20,6 @@ const reactionSchema = new Schema(
       default: Date.now(),
     }
   },
-  {
-    toJSON: {
-    },
-  }
 );
 
 const thoughtsSchema = new Schema(
@@ -30,6 +27,8 @@ const thoughtsSchema = new Schema(
     thoughtText: {
       type: String,
       required: true,
+      minLength: 1,
+      maxLength: 280,
     },
     createdAt: {
       type: Date,
@@ -41,10 +40,6 @@ const thoughtsSchema = new Schema(
     },
     reactions: [{ type: Schema.Types.ObjectId, ref: 'reactionSchema', }]
   },
-  {
-    toJSON: {
-    },
-  }
 );
 reactionSchema.virtual('reactionCount').get(function () {
   return this.reactionCount.length
