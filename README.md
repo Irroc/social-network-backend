@@ -24,3 +24,7 @@ You can add users thoughts and reactions as well as associate thoughts with the 
 
 
 ## Tests
+
+
+https://github.com/Irroc/social-network-backend/assets/145403276/efb9c039-b9a9-4eb3-9bcc-6fc4d5054d31
+
