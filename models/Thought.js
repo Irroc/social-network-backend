@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, Types, model } = require('mongoose');
 
 const reactionSchema = new Schema(
   {
@@ -20,6 +20,12 @@ const reactionSchema = new Schema(
       default: Date.now(),
     }
   },
+  {
+    toJSON: {
+      getters: true,
+    },
+    id: false,
+  }
 );
 
 const thoughtsSchema = new Schema(
@@ -38,11 +44,17 @@ const thoughtsSchema = new Schema(
       type: String,
       required: true,
     },
-    reactions: [{ type: Schema.Types.ObjectId, ref: 'reactionSchema', }]
+    reactions: [reactionSchema]
   },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    id: false,
+  }
 );
-reactionSchema.virtual('reactionCount').get(function () {
-  return this.reactionCount.length
+thoughtsSchema.virtual('reactionCount').get(function () {
+  return this.reactions.length
 })
 
 const Thought = model('thought', thoughtsSchema);
